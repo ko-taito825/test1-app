@@ -8,6 +8,7 @@ function App() {
     <>
       <Header />
       <ArticleCard />
+      <p>こんにちは</p>
     </>
   );
 }
