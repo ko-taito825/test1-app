@@ -1,14 +1,17 @@
 import React from "react";
 import Header from "./Components/Header/Header";
-import ArticleCard from "./Components/Article/ArticleCard";
-import Tag from "./Components/Tag/Tag";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Home from "./Pages/Home";
 
 function App() {
   return (
     <>
       <Header />
-      <ArticleCard />
-      <p>こんにちは</p>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }
