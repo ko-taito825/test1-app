@@ -27,7 +27,7 @@ export default function Detail() {
   const post = posts.find((p) => p.id === Number(postId));
   if (loading) return <p>読み込み中...</p>;
 
-  if (!loading && !post) return <p>記事が見つかりません。</p>;
+  if (!post) return <p>記事が見つかりません。</p>;
 
   return (
     <div className={styles.wrapper}>
