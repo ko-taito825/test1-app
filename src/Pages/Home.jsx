@@ -1,8 +1,22 @@
 import styles from "../Styles/Home.module.css";
-import { posts } from "../Data/posts";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    const fetcher = async () => {
+      const res = await fetch(
+        "https://1hmfpsvto6.execute-api.ap-northeast-1.amazonaws.com/dev/posts"
+      );
+      const data = await res.json();
+      setPosts(data.posts);
+    };
+
+    fetcher();
+  }, []);
+
   return (
     <div>
       {posts.map((post) => (
