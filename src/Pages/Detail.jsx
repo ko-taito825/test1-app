@@ -3,8 +3,8 @@ import styles from "../Styles/Detail.module.css";
 import { posts } from "../Data/posts";
 import { useParams } from "react-router-dom";
 export default function Detail() {
-  const { id } = useParams();
-  const post = posts.find((p) => p.id === Number(id));
+  const { postId } = useParams();
+  const post = posts.find((p) => p.id === Number(postId));
   if (!post) return <p>記事が見つかりません。</p>;
 
   return (

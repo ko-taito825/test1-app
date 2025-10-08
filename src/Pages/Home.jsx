@@ -7,7 +7,7 @@ export default function Home() {
     <div>
       {posts.map((post) => (
         <Link
-          to={`/Detail/${post.id}`}
+          to={`/posts/${post.id}`}
           className={styles.postCard}
           key={post.id}
         >
