@@ -3,17 +3,16 @@ import styles from "../Styles/Detail.module.css";
 import { useParams } from "react-router-dom";
 export default function Detail() {
   const { postId } = useParams();
-  const [posts, setPosts] = useState([]);
+  const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     const fetcher = async () => {
       try {
         const res = await fetch(
-          "https://1hmfpsvto6.execute-api.ap-northeast-1.amazonaws.com/dev/posts"
+          `https://1hmfpsvto6.execute-api.ap-northeast-1.amazonaws.com/dev/posts/${postId}`
         );
         const data = await res.json();
-        setPosts(data.posts);
+        setPost(data.post);
       } catch (error) {
         console.error("データの取得に失敗しました。", error);
       } finally {
@@ -24,7 +23,6 @@ export default function Detail() {
     fetcher();
   }, []);
 
-  const post = posts.find((p) => p.id === Number(postId));
   if (loading) return <p>読み込み中...</p>;
 
   if (!post) return <p>記事が見つかりません。</p>;
@@ -44,7 +42,6 @@ export default function Detail() {
           </span>
         ))}
       </div>
-
       <h2>APIで取得した{post.title}</h2>
       <div dangerouslySetInnerHTML={{ __html: post.content }}></div>
     </div>
