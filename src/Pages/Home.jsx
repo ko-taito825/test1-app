@@ -1,28 +1,59 @@
 import styles from "../Styles/Home.module.css";
-import { posts } from "../Data/posts";
+import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const fetcher = async () => {
+      try {
+        const res = await fetch(
+          "https://1hmfpsvto6.execute-api.ap-northeast-1.amazonaws.com/dev/posts"
+        );
+        const data = await res.json();
+        setPosts(data.posts);
+      } catch (error) {
+        console.error("データの取得に失敗しました。", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetcher();
+  }, []);
+
+  if (loading) return <p>読み込み中...</p>;
+
+  if (posts.length === 0) return <p>記事が見つかりません</p>;
+
   return (
     <div>
       {posts.map((post) => (
-        <div className={styles.container} key={post.id}>
-          <div className={styles.postDate}>
-            {new Date(post.createdAt).toLocaleDateString("ja-JP")}
+        <Link
+          to={`/posts/${post.id}`}
+          className={styles.postCard}
+          key={post.id}
+        >
+          <div className={styles.container}>
+            <div className={styles.postDate}>
+              {new Date(post.createdAt).toLocaleDateString("ja-JP")}
+            </div>
+            <div className={styles.categoryItems}>
+              {post.categories.map((category, catIndex) => (
+                <span key={catIndex} className={styles.categoryItem}>
+                  {category}
+                </span>
+              ))}
+            </div>
+            <h1>APIで取得した{post.title}</h1>
+            <div
+              dangerouslySetInnerHTML={{
+                __html: post.content.slice(0, 60) + "...",
+              }}
+            />
           </div>
-          <div className={styles.categoryItems}>
-            {post.categories.map((category, catIndex) => (
-              <span key={catIndex} className={styles.categoryItem}>
-                {category}
-              </span>
-            ))}
-          </div>
-          <h1>APIで取得した{post.title}</h1>
-          <div
-            dangerouslySetInnerHTML={{
-              __html: post.content.slice(0, 60) + "...",
-            }}
-          />
-        </div>
+        </Link>
       ))}
     </div>
   );

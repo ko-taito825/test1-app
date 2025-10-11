@@ -1,12 +1,6 @@
-.postCard {
-  text-decoration: none;
-  display: block;
-  color: black;
-}
-.container {
-  border: 1px solid rgb(139, 134, 134);
-  padding: 16px;
-  margin: 40px 30px;
+.wrapper {
+  width: 800px;
+  margin: 40px auto;
 }
 .languageItem {
   color: black;
