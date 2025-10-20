@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "../../Styles/ClearButton.module.css";
-export default function ClearButton({ onClick }) {
+export default function ClearButton({ onClick, disabled }) {
   return (
     <div>
       <input
@@ -8,6 +8,7 @@ export default function ClearButton({ onClick }) {
         value="クリア"
         onClick={onClick}
         className={styles.ClearButton}
+        disabled={disabled}
       />
     </div>
   );

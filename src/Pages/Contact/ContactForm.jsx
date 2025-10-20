@@ -10,6 +10,7 @@ export default function ContactForm() {
   const [email, setEmail] = useState("");
   const [form, setForm] = useState("");
   const [errors, setErrors] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,6 +23,9 @@ export default function ContactForm() {
       console.log("バリデーションエラー：", errors);
       return;
     }
+
+    setIsLoading(true);
+
     const payload = { name, email, message: form };
     try {
       const response = await fetch(
@@ -47,6 +51,8 @@ export default function ContactForm() {
     } catch (errors) {
       console.error("通信エラー", errors);
       alert("通信エラーが発生しました。");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -88,11 +94,17 @@ export default function ContactForm() {
         setName={setName}
         setEmail={setEmail}
         errors={errors}
+        disabled={isLoading}
       />
-      <TextArea form={form} setForm={setForm} errors={errors} />
+      <TextArea
+        form={form}
+        setForm={setForm}
+        errors={errors}
+        disabled={isLoading}
+      />
       <div className={styles.flexButton}>
-        <SubmitButton />
-        <ClearButton onClick={handleClear} />
+        <SubmitButton disabled={isLoading} />
+        <ClearButton onClick={handleClear} disabled={isLoading} />
       </div>
     </form>
   );
