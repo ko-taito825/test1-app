@@ -81,7 +81,7 @@ export default function ContactForm() {
     setName("");
     setEmail("");
     setForm("");
-    setErrors("");
+    setErrors({});
   };
   return (
     <form className={styles.wrapper} onSubmit={handleSubmit} noValidate>
