@@ -18,6 +18,7 @@ export default function ContactForm() {
     console.log("名前：", name);
     console.log("メールアドレス：", email);
     console.log("本文：", form);
+    console.log("送信デバッグ", { name, email, form });
 
     if (!validate()) {
       console.log("バリデーションエラー：", errors);
@@ -88,6 +89,7 @@ export default function ContactForm() {
       <div className={styles.contactTitle}>
         <h1>問合せフォーム</h1>
       </div>
+
       <InputField
         name={name}
         email={email}
